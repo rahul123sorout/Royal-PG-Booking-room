@@ -32,7 +32,13 @@ export async function POST(request: Request) {
     });
 
     // 4. Send email
-    await sendOtpEmail(email, otp);
+    const emailSent = await sendOtpEmail(email, otp);
+    if (!emailSent) {
+      return NextResponse.json({
+        success: false,
+        message: 'Failed to send OTP verification email. Please verify SMTP settings and connection.'
+      }, { status: 500 });
+    }
 
     return NextResponse.json({
       success: true,
