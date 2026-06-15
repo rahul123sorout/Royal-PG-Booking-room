@@ -24,6 +24,7 @@ interface AuthContextType {
   resetPassword: (email: string, code: string, passwordString: string) => Promise<{ success: boolean; message: string }>;
   logout: () => Promise<void>;
   updateProfile: (profile: Partial<UserProfile>) => Promise<{ success: boolean; message: string }>;
+  cancelOTP: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -260,6 +261,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const cancelOTP = () => {
+    setOtpSent(false);
+    setPendingProfile(null);
+    localStorage.removeItem('otpEmail');
+  };
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -272,7 +279,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       forgotPassword,
       resetPassword,
       logout,
-      updateProfile
+      updateProfile,
+      cancelOTP
     }}>
       {children}
     </AuthContext.Provider>

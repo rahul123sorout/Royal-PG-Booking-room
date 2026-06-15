@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 function AuthPageContent() {
-  const { user, loading, otpSent, signUp, verifyOTP, loginWithEmail, forgotPassword, resetPassword } = useAuth();
+  const { user, loading, otpSent, signUp, verifyOTP, loginWithEmail, forgotPassword, resetPassword, cancelOTP } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -435,7 +435,7 @@ function AuthPageContent() {
               <button
                 type="button"
                 onClick={() => {
-                  window.location.reload();
+                  cancelOTP();
                 }}
                 className="flex-1 border border-neutral-800 text-neutral-300 hover:bg-neutral-900/60 text-xs py-3 rounded-xl transition-all font-bold bg-transparent cursor-pointer"
               >
@@ -505,7 +505,7 @@ function AuthPageContent() {
               <button
                 type="button"
                 onClick={() => {
-                  window.location.reload();
+                  cancelOTP();
                 }}
                 className="flex-1 border border-neutral-800 text-neutral-300 hover:bg-neutral-900/60 text-xs py-3 rounded-xl transition-all font-bold bg-transparent cursor-pointer"
               >
